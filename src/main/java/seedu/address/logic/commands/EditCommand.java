@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPERIENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL_OF_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -26,6 +27,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.done.Done;
 import seedu.address.model.interview.Interview;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmploymentType;
 import seedu.address.model.person.ExpectedSalary;
@@ -53,11 +55,12 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_EMPLOYMENT_TYPE + "EMPLOYMENT TYPE] "
-            + "[" + PREFIX_EXPECTED_SALARY + "EXPECTED_SALARY]"
+            + "[" + PREFIX_EXPECTED_SALARY + "EXPECTED_SALARY] "
             + "[" + PREFIX_LEVEL_OF_EDUCATION + "LEVEL OF EDUCATION] "
             + "[" + PREFIX_EXPERIENCE + "YEARS_OF_EXPERIENCE] "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_INTERVIEW + "INTERVIEW]\n "
+            + "[" + PREFIX_NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -122,11 +125,12 @@ public class EditCommand extends Command {
         Experience updatedExperience = editPersonDescriptor.getExperience().orElse(personToEdit.getExperience());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Optional<Interview> updatedInterview = editPersonDescriptor.getInterview().orElse(personToEdit.getInterview());
+        Optional<Notes> updatedNotes = editPersonDescriptor.getNotes().orElse(personToEdit.getNotes());
 
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRole,
                 updatedEmploymentType, updatedExpectedSalary, updatedLevelOfEducation,
-                updatedExperience, updatedTags, updatedInterview);
+                updatedExperience, updatedTags, updatedInterview, updatedNotes);
     }
 
     @Override
@@ -162,6 +166,7 @@ public class EditCommand extends Command {
         private Experience experience;
         private Set<Tag> tags;
         private Optional<Interview> interview;
+        private Optional<Notes> notes;
         private Done done;
 
         public EditPersonDescriptor() {}
@@ -181,6 +186,7 @@ public class EditCommand extends Command {
             setExperience(toCopy.experience);
             setTags(toCopy.tags);
             setInterview(toCopy.interview);
+            setNotes(toCopy.notes);
             setDone(toCopy.done);
         }
 
@@ -189,7 +195,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, role,
-                    employmentType, expectedSalary, levelOfEducation, experience, tags, interview);
+                    employmentType, expectedSalary, levelOfEducation, experience, tags, interview, notes);
         }
 
         public void setName(Name name) {
@@ -281,6 +287,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(interview);
         }
 
+        public void setNotes(Optional<Notes> notes) {
+            this.notes = notes;
+        }
+
+        public Optional<Optional<Notes>> getNotes() {
+            return Optional.ofNullable(notes);
+        }
+
         public void setDone(Done done) {
             this.done = done;
         }
@@ -312,9 +326,9 @@ public class EditCommand extends Command {
                     && getExpectedSalary().equals(e.getExpectedSalary())
                     && getLevelOfEducation().equals(e.getLevelOfEducation())
                     && getExperience().equals(e.getExperience())
-                    && getInterview().equals(e.getInterview())
                     && getTags().equals(e.getTags())
-
+                    && getInterview().equals(e.getInterview())
+                    && getNotes().equals(e.getNotes())
                     && getDone().equals(e.getDone());
         }
     }
