@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.address.model.done.Done;
 import seedu.address.model.interview.Interview;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmploymentType;
 import seedu.address.model.person.ExpectedSalary;
@@ -32,6 +33,7 @@ public class PersonBuilder {
     public static final String DEFAULT_LEVEL_OF_EDUCATION = "PhD";
     public static final String DEFAULT_EXPERIENCE = "0";
     public static final String DEFAULT_INTERVIEW = "2021-10-21, 19:00";
+    public static final String DEFAULT_NOTES = "This candidate has lots of past projects in this field.";
 
 
     private Name name;
@@ -44,6 +46,7 @@ public class PersonBuilder {
     private Experience experience;
     private Set<Tag> tags;
     private Optional<Interview> interview;
+    private Optional<Notes> notes;
     private Done done;
 
     /**
@@ -60,6 +63,7 @@ public class PersonBuilder {
         experience = new Experience(DEFAULT_EXPERIENCE);
         tags = new HashSet<>();
         interview = Optional.ofNullable(new Interview(DEFAULT_INTERVIEW));
+        notes = Optional.of(new Notes(DEFAULT_NOTES));
         done = new Done();
     }
 
@@ -77,6 +81,7 @@ public class PersonBuilder {
         experience = personToCopy.getExperience();
         tags = new HashSet<>(personToCopy.getTags());
         interview = personToCopy.getInterview();
+        notes = personToCopy.getNotes();
         done = personToCopy.getDone();
     }
 
@@ -161,6 +166,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Notes} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNotes(String notes) {
+        this.notes = Optional.of(new Notes(notes));
+        return this;
+    }
+
+    /**
      * Sets the {@code Done} of the {@code Person} that we are building.
      */
     public PersonBuilder withDone(String done) {
@@ -173,7 +186,7 @@ public class PersonBuilder {
      */
     public Person build() {
         return new Person(name, phone, email, role, employmentType,
-                expectedSalary, levelOfEducation, experience, tags, interview, done);
+                expectedSalary, levelOfEducation, experience, tags, interview, notes, done);
     }
 
 }
