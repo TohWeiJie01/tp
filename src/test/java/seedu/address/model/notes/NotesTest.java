@@ -15,20 +15,20 @@ public class NotesTest {
 
     @Test
     public void constructor_invalidRole_throwsIllegalArgumentException() {
-        String invalidNotes = "";
+        String invalidNotes = "        ";
         assertThrows(IllegalArgumentException.class, () -> new Notes(invalidNotes));
     }
 
     @Test
-    public void isValidRole() {
-        // null role
+    public void isValidNotes() {
+        // null notes
         assertThrows(NullPointerException.class, () -> Notes.isValidNotes(null));
 
-        // invalid roles
+        // invalid notes
         assertFalse(Notes.isValidNotes("")); // empty string
         assertFalse(Notes.isValidNotes(" ")); // spaces only
 
-        // valid roles
+        // valid notes
         assertTrue(Notes.isValidNotes("very good candidate")); // alphabets only
         assertTrue(Notes.isValidNotes("123456")); // numbers only
         assertTrue(Notes.isValidNotes("!?@%^-_|+/*")); // symbols only
