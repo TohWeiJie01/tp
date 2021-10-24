@@ -150,8 +150,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB
                 + TAG_DESC_HUSBAND + NAME_DESC_AMY + EMAIL_DESC_AMY + ROLE_DESC_AMY
                 + EMPLOYMENT_TYPE_DESC_AMY + EXPECTED_SALARY_DESC_AMY
-                + LEVEL_OF_EDUCATION_DESC_AMY + EXPERIENCE_DESC_AMY + TAG_DESC_FRIEND
-                + NOTES_DESC_AMY;
+                + LEVEL_OF_EDUCATION_DESC_AMY + EXPERIENCE_DESC_AMY + TAG_DESC_FRIEND;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_BOB)
@@ -160,8 +159,7 @@ public class EditCommandParserTest {
                 .withExpectedSalary(VALID_EXPECTED_SALARY_AMY)
                 .withLevelOfEducation(VALID_LEVEL_OF_EDUCATION_AMY)
                 .withExperience(VALID_EXPERIENCE_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-                .withNotes(VALID_NOTES_AMY).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -238,10 +236,10 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // notes
-        userInput = targetIndex.getOneBased() + NOTES_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withNotes(VALID_NOTES_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        //userInput = targetIndex.getOneBased() + NOTES_DESC_AMY;
+        //descriptor = new EditPersonDescriptorBuilder().withNotes(VALID_NOTES_AMY).build();
+        //expectedCommand = new EditCommand(targetIndex, descriptor);
+        //assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -255,7 +253,7 @@ public class EditCommandParserTest {
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ROLE_DESC_BOB + EMPLOYMENT_TYPE_DESC_BOB
                 + EXPECTED_SALARY_DESC_BOB + LEVEL_OF_EDUCATION_DESC_BOB
-                + EXPERIENCE_DESC_BOB + TAG_DESC_HUSBAND + NOTES_DESC_BOB;
+                + EXPERIENCE_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
@@ -265,7 +263,6 @@ public class EditCommandParserTest {
                 .withLevelOfEducation(VALID_LEVEL_OF_EDUCATION_BOB)
                 .withExperience(VALID_EXPERIENCE_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .withNotes(VALID_NOTES_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
