@@ -127,7 +127,6 @@ public class EditCommand extends Command {
         Optional<Interview> updatedInterview = editPersonDescriptor.getInterview().orElse(personToEdit.getInterview());
         Optional<Notes> updatedNotes = editPersonDescriptor.getNotes().orElse(personToEdit.getNotes());
 
-
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRole,
                 updatedEmploymentType, updatedExpectedSalary, updatedLevelOfEducation,
                 updatedExperience, updatedTags, updatedInterview, updatedNotes);
