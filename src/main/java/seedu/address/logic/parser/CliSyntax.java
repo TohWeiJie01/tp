@@ -7,10 +7,10 @@ import static seedu.address.logic.parser.PrefixSyntax.PREFIX_EXPERIENCE_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_INTERVIEW_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_LEVEL_OF_EDUCATION_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_NAME_SYNTAX;
+import static seedu.address.logic.parser.PrefixSyntax.PREFIX_NOTES_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_PHONE_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_ROLE_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_TAG_SYNTAX;
-import static seedu.address.logic.parser.PrefixSyntax.PREFIX_NOTES_SYNTAX;
 
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
