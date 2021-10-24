@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Notes {
 
-    public static final Notes EMPTY_NOTES = new Notes("-NIL-");
+    public static final Notes EMPTY_NOTES = new Notes("");
     public static final String MESSAGE_CONSTRAINTS = "Notes should not be blank";
 
     public final String information;
@@ -20,7 +20,7 @@ public class Notes {
      */
     public Notes(String information) {
         if (information.isEmpty()) {
-            this.information = "-NIL-";
+            this.information = "-";
         } else {
             requireNonNull(information);
             checkArgument(isValidNotes(information), MESSAGE_CONSTRAINTS);
