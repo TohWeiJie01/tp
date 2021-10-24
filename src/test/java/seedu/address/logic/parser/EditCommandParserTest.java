@@ -15,14 +15,12 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPECTED_SALA
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPERIENCE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LEVEL_OF_EDUCATION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NOTES_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.LEVEL_OF_EDUCATION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.LEVEL_OF_EDUCATION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NOTES_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NOTES_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NOTES_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -240,8 +238,8 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // notes
-        userInput = targetIndex.getOneBased() + EXPERIENCE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withExperience(VALID_NOTES_AMY).build();
+        userInput = targetIndex.getOneBased() + NOTES_DESC_AMY;
+        descriptor = new EditPersonDescriptorBuilder().withNotes(VALID_NOTES_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

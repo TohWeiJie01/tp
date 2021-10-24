@@ -138,24 +138,17 @@ public class AddCommandParserTest {
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
+                .withNotes(VALID_NOTES_BOB).build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ROLE_DESC_BOB + EMPLOYMENT_TYPE_DESC_BOB
                 + EXPECTED_SALARY_DESC_BOB + LEVEL_OF_EDUCATION_DESC_BOB + EXPERIENCE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
-
-        // multiple notes - last notes accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ROLE_DESC_BOB + EMPLOYMENT_TYPE_DESC_BOB
-                + EXPECTED_SALARY_DESC_BOB + LEVEL_OF_EDUCATION_DESC_BOB
-                + EXPERIENCE_DESC_AMY + TAG_DESC_FRIEND
-                + NOTES_DESC_AMY + NOTES_DESC_BOB, new AddCommand(expectedPerson));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + NOTES_DESC_BOB, new AddCommand(expectedPersonMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Person expectedPerson = new PersonBuilder(AMY).withTags().withNotes("").build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ROLE_DESC_AMY + EMPLOYMENT_TYPE_DESC_AMY + EXPECTED_SALARY_DESC_AMY
                 + LEVEL_OF_EDUCATION_DESC_AMY + EXPERIENCE_DESC_AMY, new AddCommand(expectedPerson));
@@ -266,12 +259,6 @@ public class AddCommandParserTest {
                 + ROLE_DESC_BOB + EMPLOYMENT_TYPE_DESC_BOB + EXPECTED_SALARY_DESC_BOB
                 + LEVEL_OF_EDUCATION_DESC_BOB + EXPERIENCE_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND + NOTES_DESC_BOB, Tag.MESSAGE_CONSTRAINTS);
-
-        // invalid notes
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ROLE_DESC_BOB + EMPLOYMENT_TYPE_DESC_BOB + EXPECTED_SALARY_DESC_BOB
-                + LEVEL_OF_EDUCATION_DESC_BOB + EXPERIENCE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_NOTES_DESC, Experience.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
