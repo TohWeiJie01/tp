@@ -14,7 +14,7 @@ public class NotesTest {
     }
 
     @Test
-    public void constructor_invalidRole_throwsIllegalArgumentException() {
+    public void constructor_invalidNote_throwsIllegalArgumentException() {
         String invalidNotes = "        ";
         assertThrows(IllegalArgumentException.class, () -> new Notes(invalidNotes));
     }
