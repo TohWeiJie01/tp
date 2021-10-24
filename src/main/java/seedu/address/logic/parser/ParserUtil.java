@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interview.Interview;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmploymentType;
 import seedu.address.model.person.ExpectedSalary;
@@ -234,5 +235,25 @@ public class ParserUtil {
             throw new ParseException(Interview.MESSAGE_CONSTRAINTS);
         }
         return Optional.of(new Interview(interview));
+    }
+
+    /** Parses a {@code String notes} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param notes String to be parsed into a Notes object.
+     * @return Notes object
+     * @throws ParseException if the given {@code Notes} is invalid.
+     */
+    public static Optional<Notes> parseNotes(String notes) throws ParseException {
+        requireNonNull(notes);
+        String trimmedNotes = notes.trim();
+        if (notes.isEmpty()) { // parse empty notes
+            return Optional.of(Notes.EMPTY_NOTES);
+        }
+
+        if (!Notes.isValidNotes(trimmedNotes)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS);
+        }
+        return Optional.of(new Notes(trimmedNotes));
     }
 }

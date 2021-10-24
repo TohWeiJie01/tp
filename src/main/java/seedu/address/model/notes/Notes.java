@@ -8,6 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Notes {
 
+    public static final Notes EMPTY_NOTES = new Notes("-NIL-");
     public static final String MESSAGE_CONSTRAINTS = "Notes should not be blank";
 
     public final String information;
@@ -18,9 +19,13 @@ public class Notes {
      * @param information A valid level of education.
      */
     public Notes(String information) {
-        requireNonNull(information);
-        checkArgument(isValidNotes(information), MESSAGE_CONSTRAINTS);
-        this.information = information;
+        if (information.isEmpty()) {
+            this.information = "-NIL-";
+        } else {
+            requireNonNull(information);
+            checkArgument(isValidNotes(information), MESSAGE_CONSTRAINTS);
+            this.information = information;
+        }
     }
 
     /**
