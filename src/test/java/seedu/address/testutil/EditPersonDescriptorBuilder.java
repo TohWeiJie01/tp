@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.done.Done;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmploymentType;
 import seedu.address.model.person.ExpectedSalary;
@@ -47,6 +49,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setExperience(person.getExperience());
         descriptor.setTags(person.getTags());
         descriptor.setInterview(person.getInterview());
+        descriptor.setNotes(person.getNotes());
     }
 
     /**
@@ -120,6 +123,16 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code Notes} into a {@code Optional<Notes>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withNotes(String notes) {
+        Optional<Notes> note = Optional.of(new Notes(notes));
+        descriptor.setNotes(note);
         return this;
     }
 
