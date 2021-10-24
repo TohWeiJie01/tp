@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPERIENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL_OF_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -29,6 +30,8 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    public static final String EMPTY = "";
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -39,7 +42,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ROLE, PREFIX_EMPLOYMENT_TYPE, PREFIX_EXPECTED_SALARY,
-                        PREFIX_LEVEL_OF_EDUCATION, PREFIX_EXPERIENCE, PREFIX_TAG, PREFIX_INTERVIEW);
+                        PREFIX_LEVEL_OF_EDUCATION, PREFIX_EXPERIENCE, PREFIX_TAG,
+                        PREFIX_INTERVIEW, PREFIX_INTERVIEW);
 
         Index index;
 
@@ -89,7 +93,11 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (argMultimap.getValue(PREFIX_INTERVIEW).isPresent()) {
             editPersonDescriptor.setInterview(
-                    ParserUtil.parseInterview(argMultimap.getValue(PREFIX_INTERVIEW).orElse("")));
+                    ParserUtil.parseInterview(argMultimap.getValue(PREFIX_INTERVIEW).orElse(EMPTY)));
+        }
+
+        if (argMultimap.getValue(PREFIX_NOTES).isPresent()) {
+            editPersonDescriptor.setNotes(ParserUtil.parseNotes(argMultimap.getValue(PREFIX_NOTES).orElse(EMPTY)));
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
