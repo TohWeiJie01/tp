@@ -12,12 +12,14 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmploymentType;
 import seedu.address.model.person.ExpectedSalary;
@@ -38,6 +40,7 @@ public class ParserUtilTest {
     private static final String INVALID_LEVEL_OF_EDUCATION = "Kindergarten";
     private static final String INVALID_EXPERIENCE = "-1";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_NOTES = "          ";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -49,6 +52,7 @@ public class ParserUtilTest {
     private static final String VALID_EXPERIENCE = "1";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_NOTES = "This applicant is the perfect candidate for the job!";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -331,6 +335,29 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseNotes_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNotes((String) null));
+    }
+
+    @Test
+    public void parseNotes_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNotes(INVALID_NOTES));
+    }
+
+    @Test
+    public void parseNotes_validValueWithoutWhitespace_returnsNotes() throws Exception {
+        Optional<Notes> expectedNotes = Optional.of(new Notes(VALID_NOTES));
+        assertEquals(expectedNotes, ParserUtil.parseNotes(VALID_NOTES));
+    }
+
+    @Test
+    public void parseNotes_validValueWithWhitespace_returnsTrimmedNotes() throws Exception {
+        String notesWithWhitespace = WHITESPACE + VALID_NOTES + WHITESPACE;
+        Optional<Notes> expectedNotes = Optional.of(new Notes(VALID_NOTES));
+        assertEquals(expectedNotes, ParserUtil.parseNotes(notesWithWhitespace));
     }
 
 }
