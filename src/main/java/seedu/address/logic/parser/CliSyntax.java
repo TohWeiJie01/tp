@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.PrefixSyntax.PREFIX_NAME_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_PHONE_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_ROLE_SYNTAX;
 import static seedu.address.logic.parser.PrefixSyntax.PREFIX_TAG_SYNTAX;
+import static seedu.address.logic.parser.PrefixSyntax.PREFIX_NOTES_SYNTAX;
 
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
@@ -27,6 +28,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_LEVEL_OF_EDUCATION = new Prefix(PREFIX_LEVEL_OF_EDUCATION_SYNTAX);
     public static final Prefix PREFIX_EXPERIENCE = new Prefix(PREFIX_EXPERIENCE_SYNTAX);
     public static final Prefix PREFIX_INTERVIEW = new Prefix(PREFIX_INTERVIEW_SYNTAX);
-
+    public static final Prefix PREFIX_NOTES = new Prefix(PREFIX_NOTES_SYNTAX);
 
 }
