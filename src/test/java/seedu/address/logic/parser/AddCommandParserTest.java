@@ -23,7 +23,6 @@ import static seedu.address.logic.commands.CommandTestUtil.LEVEL_OF_EDUCATION_DE
 import static seedu.address.logic.commands.CommandTestUtil.LEVEL_OF_EDUCATION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NOTES_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NOTES_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;

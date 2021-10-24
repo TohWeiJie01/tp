@@ -32,7 +32,7 @@ public class NotesTest {
         assertTrue(Notes.isValidNotes("very good candidate")); // alphabets only
         assertTrue(Notes.isValidNotes("123456")); // numbers only
         assertTrue(Notes.isValidNotes("!?@%^-_|+/*")); // symbols only
-        assertTrue(Notes.isValidNotes("I would 100% recommend him for the job!")); // alphanumeric characters and symbols
+        assertTrue(Notes.isValidNotes("I would 100% recommend him for the job!")); // characters and symbols
         assertTrue(Notes.isValidNotes("He is a very good candidate for the job and "
                 + "I thoroughly recommend the interviewing panel to take extra note of "
                 + "him during the interview")); // long notes

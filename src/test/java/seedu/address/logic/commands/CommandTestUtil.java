@@ -82,7 +82,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_NOTES_DESC = " " + PREFIX_NOTES + "      "; // whitespace by itself only is not allowed in notes
+    public static final String INVALID_NOTES_DESC =
+            " " + PREFIX_NOTES + "      "; // whitespace by itself only is not allowed in notes
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "Softw@re Eng1n33r"; // '@' not allowed in roles
