@@ -533,4 +533,5 @@ Action | Format, Examples
 **Mark** | `mark INDEX…​`<br> e.g., `mark 3`
 **Unmark** | `unmark INDEX…​`<br> e.g., `unmark 3`
 **Delete marked** | `delete_marked`
+**Clear** | `clear`
 **Help** | `help`
