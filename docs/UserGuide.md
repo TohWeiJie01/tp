@@ -372,11 +372,11 @@ but not with *Role*s such as `Software` or `Software Developer`.
         * A `passionate` input can match with applicants that have Notes such as `passionate but inexperienced` and `passionate and experienced`.
 
 * ##### DONE `d/`
-    * An DONE is considered matching with a ***Done*** only if the ***Done***'s status string is either `Done` or `Not Done`.
+    * An DONE is considered matching only if the ***Done*** input is either `Done` or `Not Done`.
     * For example:
         * A `Done` input can match with applicants that have their *Done* status marked as Done.
         * A `Not Done` input can match with applicants that have their *Done* status unmarked as Not Done.
-        
+        * Any other input would be invalid.
         
 ### Filtering interviews : `filter_interview`
 Filters applicants by interview dates based on whether they are upcoming or in the past (based on current date and time).
