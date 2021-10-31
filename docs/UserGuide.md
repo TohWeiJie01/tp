@@ -307,7 +307,7 @@ but not with *Role*s such as `Software` or `Software Developer`.
 
 
 * ##### EMPLOYMENT_TYPE `et/`
-  * An EMPLOYMENT_TYPE is considered matching with an ***Employment Type*** only if it **starts with any** of the keywords in the ***Employment Type**.
+  * An EMPLOYMENT_TYPE is considered matching with an ***Employment Type*** only if it **starts with any** of the keywords in the **Employment Type**.
   * All keywords provided as EMPLOYMENT_TYPE input must comply with input specifications for add given [**here**](#employment_type-et).
   * For example:
     * A `Full time` or `full time` or `full` input will match only with *Employment Type*s that are ```Full time```
@@ -326,12 +326,13 @@ but not with *Role*s such as `Software` or `Software Developer`.
 
 
 * ##### LEVEL_OF_EDUCATION `l/`
-  * LEVEL_OF_EDUCATION can be a fixed number of levels, being `Elementary`, `Middle School`, `High School`, `University`, `Bachelors`, `Masters` and `PhD`.
-  * A LEVEL_OF_EDUCATION is considered matching with a ***level of Education*** only if **at least 1** letter of a keyword is equal to **at least 1** letter in the ***Level of Education***
+  * A LEVEL_OF_EDUCATION is considered matching with a ***Level of Education*** only if it **starts with any** of the keywords in the **Level of Education**.
   * All keywords provided as LEVEL_OF_EDUCATION input must comply with input specifications for add given [**here**](#level_of_education-l).
   * For example:
-    * A `H` input can match with ***Level of Education***s such `High School`, but not with *Level of Education*s such as `PhD`
-    * A `High School` input can match with ***Level of Education***s such as `High School`, but not with *Level of Education*s such as `Middle School`
+    * A `H` input can match with ***Level of Education***s such `High School`, but not with *Level of Education*s such as `PhD`.
+    * A `High School` input will match with all *Level of Education*s that are `High School`, but not with *Level of Education*s such as `Middle School`.
+    * A `High Middle` input will match with all *Level of Education*s that are `High School` and `Middle School`.
+    * A `High School bob` input is invalid as `bob` is not a term any of the *Level of Education*s start with.
 
 
 * ##### YEARS_OF_EXPERIENCE `y/`
