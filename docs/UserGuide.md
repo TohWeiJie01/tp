@@ -311,7 +311,7 @@ but not with *Role*s such as `Software` or `Software Developer`.
 
 
 * ##### EMPLOYMENT_TYPE `et/`
-  * An EMPLOYMENT_TYPE is considered matching with an ***Employment Type*** only if it **starts with any** of the keywords in the **Employment Type**.
+  * An EMPLOYMENT_TYPE is considered matching with an ***Employment Type*** only if it **starts with any** of the keywords in the ***Employment Type***.
   * All keywords provided as EMPLOYMENT_TYPE input must comply with input specifications for add given [**here**](#employment_type-et).
   * For example:
     * A `Full time` or `full time` or `full` input will match only with *Employment Type*s that are ```Full time```
