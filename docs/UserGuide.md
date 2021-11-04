@@ -330,7 +330,7 @@ but not with *Role*s such as `Software` or `Software Developer`.
 
 
 * ##### LEVEL_OF_EDUCATION `l/`
-  * A LEVEL_OF_EDUCATION is considered matching with a ***Level of Education*** only if it **starts with any** of the keywords in the **Level of Education**.
+  * A LEVEL_OF_EDUCATION is considered matching with a ***Level of Education*** only if it **starts with any** of the keywords in the ***Level of Education***.
   * All keywords provided as LEVEL_OF_EDUCATION input must comply with input specifications for add given [**here**](#level_of_education-l).
   * For example:
     * A `H` input can match with ***Level of Education***s such `High School`, but not with *Level of Education*s such as `PhD`.
