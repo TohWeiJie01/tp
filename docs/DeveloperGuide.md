@@ -12,12 +12,13 @@ title: Developer Guide
 
 RecruitIn is a desktop app for recruiters in Singapore to keep track of the plethora of clients with different skill sets, availability and experience.
 
-It is optimised for quick text-based inputs via a Command Line Interface (CLI) while still having the ease of use of a Graphical User Interface (GUI).
+It is optimized for quick text-based inputs via a Command Line Interface (CLI) while still having the ease of use of a Graphical User Interface (GUI).
 
 This product will make recruiters’ lives easier through categorisation and filter features to easily access candidates they have in mind.
 
 
 ### Table of Contents
+- [**About this guide**](#about-this-guide)
 - [**Acknowledgements**](#acknowledgements)
 - [**Setting up, getting started**](#setting-up-getting-started)
 - [**Design**](#design)
@@ -44,31 +45,58 @@ This product will make recruiters’ lives easier through categorisation and fil
     + [Design considerations for delete marked:](#design-considerations-for-delete-marked)
   * [Datetime for interview](#datetime-for-interview)
 - [**Documentation, logging, testing, configuration, dev-ops**](#documentation-logging-testing-configuration-dev-ops)
-- [**Appendix: Requirements**](#appendix-requirements)
+- [**Appendix A: Requirements**](#appendix-a-requirements)
   * [Product scope](#product-scope)
   * [User stories](#user-stories)
   * [Use cases](#use-cases)
   * [Non-Functional Requirements](#non-functional-requirements)
   * [Glossary](#glossary)
-- [**Appendix: Instructions for manual testing**](#appendix-instructions-for-manual-testing--)
+- [**Appendix B: Instructions for manual testing**](#appendix-b-instructions-for-manual-testing)
   * [Launch and shutdown](#launch-and-shutdown)
   * [Listing all applicants](#listing-all-applicants)
   * [Adding an applicant](#adding-an-applicant)
   * [Editing an applicant](#editing-an-applicant)
   * [Deleting an applicant](#deleting-an-applicant)
   * [Finding an applicant](#finding-an-applicant)
+  * [Showing an applicant](#showing-search-terms)
   * [Marking an applicant](#marking-an-applicant)
   * [Unmarking an applicant](#unmarking-an-applicant)
   * [Deleting marked applicants](#deleting-marked-applicants)
   * [Saving data](#saving-data)
+- [**Appendix C: Effort**](#appendix-c-effort)
+  * [Addition of categories](#addition-of-categories)
+  * [Integration of categories](#integration-of-categories)
+  * [Implementation of new features](#implementation-of-new-features)
 
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **About this guide**
+[Table of contents](#table-of-contents)
+
+This guide aims to help developers get familiar with how RecruitIn functions.
+* To understand the design of RecruitIn on a higher level, you may visit [Design](#design) for implementation
+details of each component of RecruitIn.
+* If you wish to go further to understand how certain features are implemented on a lower level, you may visit
+[Implementation](#implementation) for noteworthy implementation details of important features.
+* If you wish to conduct some manual testing of RecruitIn, you may visit [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+to find various test cases and expected results for some features of RecruitIn.
+* If you wish to make further developments to RecruitIn, 
+you may follow the guide at [Setting up, getting started](#setting-up-getting-started) 
+for a quick set up of your development environment.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
 [Table of contents](#table-of-contents)
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* [JavaFX](https://openjfx.io/)
+* [Jackson](https://github.com/FasterXML/jackson)
+* [JUnit5](https://github.com/junit-team/junit5)
+* [Gradle](https://github.com/gradle/gradle)
+* [Gradle Shadow](https://github.com/johnrengelman/shadow)
+* [CheckStyle](https://github.com/checkstyle/checkstyle)
+* [CodeCov](https://github.com/codecov)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -84,7 +112,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F11-2/tp/tree/master/docs/diagrams/) folder.
 </div>
 
 ### Architecture
@@ -98,7 +126,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -132,13 +160,13 @@ The sections below give more details of each component.
 ### UI component
 [Table of contents](#table-of-contents)
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -150,7 +178,7 @@ The `UI` component,
 ### Logic component
 [Table of contents](#table-of-contents)
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -164,7 +192,7 @@ How the `Logic` component works:
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `delete 1` Command](images/dg-diagrams/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
@@ -180,7 +208,7 @@ How the parsing works:
 ### Model component
 [Table of contents](#table-of-contents)
 
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="600" />
 
@@ -202,7 +230,7 @@ The `Model` component,
 ### Storage component
 [Table of contents](#table-of-contents)
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F11-2/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -230,7 +258,7 @@ The `add` command is facilitated by creating an `AddCommand` depending on the gi
 This command then updates the `model` accordingly.
 
 The following activity diagram summarizes what happens when a user executes an ```add``` command:
-![images](images/AddCommandActivityDiagram.png)
+![images](images/dg-diagrams/AddCommandActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -259,7 +287,7 @@ Step 6. `CommandResult` is initialized with `String` containing the details of t
 This `CommandResult` is then returned.
 
 The following sequence diagram shows how the add operation works.
-![images](images/AddCommandSequenceDiagram.png)
+![images](images/dg-diagrams/AddCommandSequenceDiagram.png)
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddCommandParser`
 should not exceed the destroy marker X. This is a known limitation of PlantUML.</div>
 
@@ -270,7 +298,7 @@ The ```edit``` command is facilitated by creating an ```EditCommand``` depending
 This command then updates the ```model``` accordingly.
 
 The following activity diagram summarizes what happens when a user executes an ```edit``` command:
-![images](images/EditCommandActivityDiagram.png)
+![images](images/dg-diagrams/EditCommandActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -301,7 +329,7 @@ Step 6. Once the list is updated, `CommandResult` is initialized with `String` c
 This `CommandResult` is then returned.
 
 The following sequence diagram shows how the edit operation works.
-![images](images/EditCommandSequenceDiagram.png)
+![images](images/dg-diagrams/EditCommandSequenceDiagram.png)
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EditCommandParser`
 should not exceed the destroy marker X. This is a known limitation of PlantUML.</div>
 
@@ -312,7 +340,7 @@ The ```delete``` command is facilitated by creating a ```DeleteCommand``` depend
 This command then updates the ```model``` accordingly.
 
 The following activity diagram summarizes what happens when a user executes an ```delete``` command:
-![images](images/DeleteActivityDiagram.png)
+![images](images/dg-diagrams/DeleteActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -335,7 +363,7 @@ Step 4. `CommandResult` is initialized with `String` containing the details of t
 This `CommandResult` is then returned.
 
 The following sequence diagram shows how the delete operation works.
-![images](images/DeleteSequenceDiagram.png)
+![images](images/dg-diagrams/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** The lifeline for `DeleteCommandParser`
@@ -349,7 +377,7 @@ input. This command then updates the ```model``` accordingly.
 
 The following activity diagram summarizes what happens when a user executes a ```find``` command:
 
-![images](images/FindCommandActivityDiagram.png)
+![images](images/dg-diagrams/FindCommandActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -371,7 +399,7 @@ Step 4. Once the string of all applicant names is formed, `CommandResult` is ini
 and returned.
 
 The following sequence diagram shows how the find operation works.
-![images](images/FindCommandSequenceDiagram.png)
+![images](images/dg-diagrams/FindCommandSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** The lifeline for `FindCommandParser`
@@ -406,7 +434,7 @@ The ```filter_interview``` command is facilitated by extending an abstract ```Fi
 subclass depending on the given input. This command then updates the ```model``` accordingly.
 
 The following activity diagram summarizes what happens when a user executes a ```filter_interview``` command:
-![images](images/FilterInterviewCommandActivityDiagram.png)
+![images](images/dg-diagrams/FilterInterviewCommandActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -435,7 +463,7 @@ Step 6. Once the list has been filtered, `CommandResult` is initialized with `St
 have interviews that have passed. This `CommandResult` is then returned.
 
 The following sequence diagram shows how the filter interview operation works.
-![images](images/FilterInterviewCommandSequenceDiagram.png)
+![images](images/dg-diagrams/FilterInterviewCommandSequenceDiagram.png)
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** The lifeline for `FilterInterviewCommandParser`
 should not exceed the destroy marker X. This is a known limitation of PlantUML.</div>
@@ -465,7 +493,7 @@ The ```show``` command is facilitated by creating an ```ObservableList``` of ```
 the prefix provided by the user.
 
 The following activity diagram summarizes what happens when a user executes a ```show``` command:
-![images](images/ShowCommandActivityDiagram.png)
+![images](images/dg-diagrams/ShowCommandActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -488,7 +516,7 @@ Step 4. Once the string of all applicant names is formed, `CommandResult` is ini
 and returned.
 
 The following sequence diagram shows how the show operation works.
-![images](images/ShowCommandSequenceDiagram.png)
+![images](images/dg-diagrams/ShowCommandSequenceDiagram.png)
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ShowCommandParser`
 should not exceed the destroy marker X. This is a known limitation of PlantUML.</div>
 
@@ -520,7 +548,7 @@ The ```mark``` command is facilitated by creating a ```MarkCommand```, which is 
 This command then updates the ```model``` accordingly, depending on the given input.
 
 The following activity diagram summarizes what happens when a user executes a ```mark``` command:
-![images](images/MarkCommandActivityDiagram.png)
+![images](images/dg-diagrams/MarkCommandActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -543,7 +571,7 @@ Step 4. `CommandResult` is initialized with `String` containing the details of t
 This `CommandResult` is then returned.
 
 The following sequence diagram shows how the mark operation works.
-![images](images/MarkCommandSequenceDiagram.png)
+![images](images/dg-diagrams/MarkCommandSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** The lifeline for `MarkingCommandParser`
@@ -556,7 +584,7 @@ The ```unmark``` command is facilitated by creating a ```UnmarkCommand```, which
 ```MarkingCommand```. This command then updates the ```model``` accordingly, depending on the given input.
 
 The following activity diagram summarizes what happens when a user executes a ```unmark``` command:
-![images](images/UnmarkCommandActivityDiagram.png)
+![images](images/dg-diagrams/UnmarkCommandActivityDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** There should only be one arrowhead at the end of every line 
@@ -578,7 +606,7 @@ Step 4. `CommandResult` is initialized with `String` containing the details of t
 This `CommandResult` is then returned.
 
 The following sequence diagram shows how the unmark operation works.
-![images](images/UnmarkCommandSequenceDiagram.png)
+![images](images/dg-diagrams/UnmarkCommandSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source:
  **Note:** The lifeline for `MarkingCommandParser`
@@ -605,7 +633,7 @@ The ```delete_marked``` command is facilitated by creating an ```DeleteMarkedCom
 This command then updates the ```model``` accordingly.
 
 The following activity diagram summarizes what happens when a user executes a ```delete_marked``` command:
-![images](images/DeleteMarkedCommandActivityDiagram.png)
+![images](images/dg-diagrams/DeleteMarkedCommandActivityDiagram.png)
 
 Given below is an example usage scenario illustrated by a sequence diagram for ```delete_marked``` command.
 
@@ -623,7 +651,7 @@ Step 5. Once the string of all applicant names that are marked is formed, `Comma
 and returned.
 
 The following sequence diagram shows how the delete marked operation works.
-![images](images/DeleteMarkedCommandSequenceDiagram.png)
+![images](images/dg-diagrams/DeleteMarkedCommandSequenceDiagram.png)
 
 #### Design considerations for delete marked:
 [Table of contents](#table-of-contents)
@@ -670,7 +698,7 @@ For example, the add command `add n/John ... i/2021-01-01, 10:30` will add a per
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## **Appendix A: Requirements**
 [Table of contents](#table-of-contents)
 
 ### Product scope
@@ -684,7 +712,7 @@ A recruiter that
 * is reasonably comfortable using CLI apps
 * has a need to manage a significant number of applications
 * works for a company that gets applications for variety of roles
-* has a need to filter and categorise applicants by different fields
+* has a need to filter and categorize applicants by different fields
 
 
 **Value proposition**:
@@ -1033,7 +1061,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC013 - Exiting RecruitIn**
+**Use case: UC014 - Exiting RecruitIn**
 
 **MSS**
 
@@ -1065,7 +1093,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## **Appendix B: Instructions for manual testing**
 [Table of contents](#table-of-contents)
 
 Given below are instructions to test the app manually.
@@ -1125,16 +1153,27 @@ testers are expected to do more *exploratory* testing.
 
 1. Editing an applicant while all applicants are being shown
 
-    1. Prerequisites: List all applicants using the `list` command. Multiple applicants in the list. 
-       There is no applicant with the phone number 87654321 and email alexander@gmail.com
+    1. Prerequisites: List all applicants using the `list` command. Multiple applicants in the list.
+      There is no applicant with the phone number 87654321 and email alexander@gmail.com
 
     1. Test case: `edit 1 n/Alexander p/87654321 e/alexander@gmail.com`<br>
-       Expected: First applicant is edited such that his new name is Alexander with the phone number 87654321 and email alexander@gmail.com.
-       Details of the edited applicant shown in the result display.
+      Expected: First applicant is edited such that his new name is Alexander with the phone number 87654321 and email alexander@gmail.com.
+      Details of the edited applicant shown in the result display.
 
     1. Test case: Ensure that you have completed the first test case under this section, then input the command `edit 2 n/Alice p/87654321`<br>
-       Expected: No applicants are edited. Error details shown in the result display stating that the new edited applicant Alice shares either
-       the same phone number or same email as Alexander.
+      Expected: No applicants are edited. Error details shown in the result display stating that the new edited applicant Alice shares either
+      the same phone number or same email as Alexander.
+
+    1. Test case: Ensure that you have completed the first test case under this section, then input the command `edit 2 n/Alice e/alexander@gmail.com`<br>
+      Expected: No applicants are edited. Error details shown in the result display stating that the new edited applicant Alice shares either
+      the same phone number or same email as Alexander.
+
+    1. Test case: `edit 2 n/&a#lly`<br>
+      Expected: No applicants are edited. Error details shown in the result display stating that names should only contain alphanumeric characters and spaces.
+
+    1. Other incorrect edit commands to try: `edit`, `edit Alexander`, `edit 1`, `edit 1 n/`
+      (where incomplete or invalid details are given for the applicant being edited)<br>
+      Expected: Error messages displaying the cause of error is shown in the result display.
        
 ### Deleting an applicant
 [Table of contents](#table-of-contents)
@@ -1170,7 +1209,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Finding an applicant by a specific prefix with non-empty parameters
    
-    1. Prerequisites: For sample data to be utilised, delete the database storage `addressbook.json` from folder `/data` and re-run the application.  
+    1. Prerequisites: For sample data to be utilized, delete the database storage `addressbook.json` from folder `/data` and re-run the application.  
     
     1. Test case:`find n/Alex` <br>
        Expected: Applicants with 'Alex' in the name are listed. Command success message shown in result display.
@@ -1193,7 +1232,7 @@ testers are expected to do more *exploratory* testing.
        
 1. Finding an applicant by multiple prefixes
 
-    1. Prerequisite: For sample data to be utilised, delete the database storage `addressbook.json` from folder `/data` and re-run the application.
+    1. Prerequisite: For sample data to be utilized, delete the database storage `addressbook.json` from folder `/data` and re-run the application.
   
     1. Test case: `find s/4000 i/oct` <br>
        Expected: Applicant with expected salary ranging from `3500` to `4500` **and** interview in October are listed. Command success message shown in result display.
@@ -1277,7 +1316,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: Find a valid group of applicants using the `find` command with appropriate inputs. Multiple applicants in the filtered list all currently `Not Done`.
     
-    2. Test case: Utilise the same test cases in Section 1 of Marking an applicant<br>
+    2. Test case: Utilize the same test cases in Section 1 of Marking an applicant<br>
        Expected: Same results as the corresponding expected test case results in Section 1 of Marking an applicant, while still in the filtered list.
 
     3. Test case: `mark 6`, then `list`<br>
@@ -1314,7 +1353,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: Find a valid group of applicants using the `find` command with appropriate inputs. Multiple applicants in the filtered list all currently `Done`.
 
-    2. Test case: Utilise the same test cases in Section 1 of Unmarking an applicant<br>
+    2. Test case: Utilize the same test cases in Section 1 of Unmarking an applicant<br>
        Expected: Same results as the corresponding expected test case results in Section 1 of Unmarking an applicant, while still in the filtered list.
 
     3. Test case: `unmark 6`, then `list`<br>
@@ -1353,4 +1392,37 @@ testers are expected to do more *exploratory* testing.
 
     1. Other incorrect test cases to try: The above two test cases can be tried without closing RecruitIn beforehand.<br>
       Expected: RecruitIn will run normally without any side-effects.
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix C: Effort**
+[Table of contents](#table-of-contents)
+
+The effort required to evolve `AB3` to `RecruitIn` could be estimated to be approximately the effort required to create AB3.
+Our team have contributed roughly 11000 lines of functional code, automated unit and integration testing, and documentation.
+Listed below are some features and enhancements, and an explanation of the difficulty or effort required to implement them:
+
+  1. ### **Addition of categories**
+      * `AB3` initially had the `Name`, `Phone Number`, `Email`, `Address`, and `Tag` categories.
+      * `RecruitIn` removed the `Address` category, and introduced the `Applied Role`, `Employment Type`, `Expected Salary`,
+        `Level of Education`, `Years of Experience`, `Interview`, and `Notes` categories, as well as a `Done` status.
+      * The addition of the categories itself was relatively low effort as we were already reusing most of `AB3`'s existing categories.
+      * Furthermore, we did not have to make any additional design decisions and could follow the existing architecture in order to add the new categories.
+    
+  2. ### **Integration of categories**
+      * This includes integration of the new categories into the existing `add`, `edit` and `find` command.
+      * The integration of the new categories into the `add` command was done without much relative difficulty.
+      * The integration of the new categories into the `edit` command did involve a refactoring of the entire edit command parser, and thus required relatively more effort.
+      * The integration of the new categories into the `find` command was very high effort, because of the following 3 reasons:
+          1. Each category was filtered by the `find` command differently, and thus involved multiple differing implementations of how to filter each category.
+          2. The `find` command was improved to allow for searching of multiple categories at the same time.
+          2. The `find` command was modified to validate parameters for each category.
+  
+  3. ### **Implementation of new features**
+      * This includes the implementation of the `show`, `mark`, `unmark`, `delete_marked`, and `filter_interview` commands.
+          * The implementation of new features was generally high effort due to having to create each command from scratch.
+          * Difficulties arose mostly from having to make our own design decisions, while at the same time having to following important software engineering principles and practices.
+      * Additionally, the `delete` command was improved to allow for deletion of multiple indexes at the same time.
+          * The modification of the existing `delete` command was generally low effort and only required additions of a few lines of functional code.
 
